@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     {
         CharacterData characterData = Resources.Load<CharacterData>("CharacterData/BaseCharData");
         lobbyPlayerData = new PlayerData();
-        lobbyPlayerData.Init(characterData);
+        lobbyPlayerData.Init(characterData, "최영임", 1, 0);
     }
 
     private void SpawnPlayer()

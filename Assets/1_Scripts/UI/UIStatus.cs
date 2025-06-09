@@ -43,7 +43,6 @@ public class UIStatus : MonoBehaviour, IGUI
         {
             Destroy(slot.gameObject);
         }
-        
         statSlots.Clear();
         
         // GameManager에 저장된 로비 플레이어 데이터로 불러오기

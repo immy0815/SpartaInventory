@@ -1,32 +1,57 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UICanvasLobby : MonoBehaviour, IGUI
 {
-    [SerializeField] private UIStatus statusPopup;
-
-    [SerializeField] private Button btnStatus;
-    [SerializeField] private Button btnInventory;
-    
+    [Header("====[Lobby]")]
     [SerializeField] private Button btnBack;
+    
+    [Header("====[Information]")]
+    [SerializeField] private TextMeshProUGUI tmpNickName;
+    [SerializeField] private TextMeshProUGUI tmpCharName;
+    [SerializeField] private TextMeshProUGUI tmpLevel;
+    [SerializeField] private TextMeshProUGUI tmpGold;
+
+    [Header("====[Status]")]
+    [SerializeField] private Button btnStatus;
+    [SerializeField] private UIStatus statusPopup;
+    
+    [Header("====[Inventory]")]
+    [SerializeField] private Button btnInventory;
 
     private void Reset()
     {
-        statusPopup = GetComponentInChildren<UIStatus>();
-
-        btnStatus = transform.FindChildByName<Button>("Btn_Status");
-        btnInventory = transform.FindChildByName<Button>("Btn_Inventory");
-        
+        // Lobby
         btnBack = transform.FindChildByName<Button>("Btn_Back");
+        
+        // Information
+        tmpNickName = transform.FindChildByName<TextMeshProUGUI>("Tmp_NickName");
+        tmpCharName = transform.FindChildByName<TextMeshProUGUI>("Tmp_CharName");
+        tmpLevel = transform.FindChildByName<TextMeshProUGUI>("Tmp_Level");
+        tmpGold = transform.FindChildByName<TextMeshProUGUI>("Tmp_Gold");
+        
+        // Status
+        btnStatus = transform.FindChildByName<Button>("Btn_Status");
+        statusPopup = GetComponentInChildren<UIStatus>();
+        
+        // Inventory
+        btnInventory = transform.FindChildByName<Button>("Btn_Inventory");
     }
 
     public void Initialization()
     {
-        statusPopup.Initialization();
+        // Information
+        tmpNickName.text = GameManager.Instance.lobbyPlayerData.Nickname;
+        tmpCharName.text = GameManager.Instance.lobbyPlayerData.characterData.charName;
+        tmpLevel.text = GameManager.Instance.lobbyPlayerData.Level.ToString();
+        tmpGold.text = GameManager.Instance.lobbyPlayerData.Gold.ToString();
         
+        // Status
         btnStatus.onClick.RemoveAllListeners();
         btnStatus.onClick.AddListener(OpenStatusPopup);
+        statusPopup.Initialization();
         
         // 인벤토리 추가해
         // 플레이어 추가해
@@ -41,5 +66,4 @@ public class UICanvasLobby : MonoBehaviour, IGUI
         btnBack.onClick.RemoveAllListeners();
         btnBack.onClick.AddListener(statusPopup.Close);
     }
-    
 }
