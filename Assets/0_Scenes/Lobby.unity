@@ -2258,7 +2258,7 @@ GameObject:
   - component: {fileID: 1770233275}
   - component: {fileID: 1770233274}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas_Lobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2581,7 +2581,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dded357f51b78fd4697ec2ac6924903d, type: 2}
   m_sharedMaterial: {fileID: 9199649697391442531, guid: dded357f51b78fd4697ec2ac6924903d, type: 2}
