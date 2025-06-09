@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
 
     private void Reset()
     {
-        canvasLobby = GetComponent<UICanvasLobby>();
+        canvasLobby = GetComponentInChildren<UICanvasLobby>();
     }
 
     void Awake()

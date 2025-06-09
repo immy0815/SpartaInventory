@@ -8,6 +8,8 @@ public class UIStatus : MonoBehaviour, IGUI
     
     [SerializeField] private Transform inventoryRoot;
     [SerializeField] private GameObject origin;
+
+    private List<GUIStat> statSlots;
     
     private void Reset()
     {
@@ -19,6 +21,7 @@ public class UIStatus : MonoBehaviour, IGUI
     public void Initialization()
     {
         canvasGroup.SetActive(false);
+        statSlots = new List<GUIStat>();
         UpdateStatusGUI();
     }
 
@@ -33,8 +36,16 @@ public class UIStatus : MonoBehaviour, IGUI
         canvasGroup.SetActive(false);
     }
 
-    void UpdateStatusGUI()
+    private void UpdateStatusGUI()
     {
+        // 비우기 => 이후 DynamicObjectPool로 변경하기
+        foreach (var slot in statSlots)
+        {
+            Destroy(slot.gameObject);
+        }
+        
+        statSlots.Clear();
+        
         // GameManager에 저장된 로비 플레이어 데이터로 불러오기
         var stats = GameManager.Instance.lobbyPlayerData.playerStat.GetStats();
         
@@ -43,6 +54,7 @@ public class UIStatus : MonoBehaviour, IGUI
             GameObject statObj = Instantiate(origin, inventoryRoot);
             GUIStat statSlot = statObj.GetComponent<GUIStat>();
             statSlot.Show(stat.Key.ToKor(), stat.Value.ToString("N2"));
+            statSlots.Add(statSlot);
         }
     }
 }
