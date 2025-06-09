@@ -6,7 +6,7 @@ public class UIStatus : MonoBehaviour, IGUI
 {
     [SerializeField] private CanvasGroup canvasGroup;
     
-    [SerializeField] private Transform inventoryRoot;
+    [SerializeField] private Transform slotRoot;
     [SerializeField] private GameObject origin;
 
     private List<GUIStat> statSlots;
@@ -14,7 +14,7 @@ public class UIStatus : MonoBehaviour, IGUI
     private void Reset()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        inventoryRoot = transform.FindChildByName<Transform>("Layout_Stat");
+        slotRoot = transform.FindChildByName<Transform>("Layout_Stat");
         origin = transform.FindChildByName<GUIStat>("GUI_Stat").gameObject;
     }
 
@@ -22,7 +22,6 @@ public class UIStatus : MonoBehaviour, IGUI
     {
         canvasGroup.SetActive(false);
         statSlots = new List<GUIStat>();
-        UpdateStatusGUI();
     }
 
     public void Open()
@@ -50,7 +49,7 @@ public class UIStatus : MonoBehaviour, IGUI
         
         foreach (var stat in stats)
         {
-            GameObject statObj = Instantiate(origin, inventoryRoot);
+            GameObject statObj = Instantiate(origin, slotRoot);
             GUIStat statSlot = statObj.GetComponent<GUIStat>();
             statSlot.Show(stat.Key.ToKor(), stat.Value.ToString("N2"));
             statSlots.Add(statSlot);

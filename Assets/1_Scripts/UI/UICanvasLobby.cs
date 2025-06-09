@@ -20,6 +20,7 @@ public class UICanvasLobby : MonoBehaviour, IGUI
     
     [Header("====[Inventory]")]
     [SerializeField] private Button btnInventory;
+    [SerializeField] private UIInventory inventoryPopup;
 
     private void Reset()
     {
@@ -38,6 +39,7 @@ public class UICanvasLobby : MonoBehaviour, IGUI
         
         // Inventory
         btnInventory = transform.FindChildByName<Button>("Btn_Inventory");
+        inventoryPopup = GetComponentInChildren<UIInventory>();
     }
 
     public void Initialization()
@@ -53,7 +55,11 @@ public class UICanvasLobby : MonoBehaviour, IGUI
         btnStatus.onClick.AddListener(OpenStatusPopup);
         statusPopup.Initialization();
         
-        // 인벤토리 추가해
+        // Inventory
+        btnInventory.onClick.RemoveAllListeners();
+        btnInventory.onClick.AddListener(OpenInventoryPopup);
+        inventoryPopup.Initialization();
+        
         // 플레이어 추가해
     }
     
@@ -65,5 +71,12 @@ public class UICanvasLobby : MonoBehaviour, IGUI
         statusPopup.Open();
         btnBack.onClick.RemoveAllListeners();
         btnBack.onClick.AddListener(statusPopup.Close);
+    }
+    
+    private void OpenInventoryPopup()
+    {
+        inventoryPopup.Open();
+        btnBack.onClick.RemoveAllListeners();
+        btnBack.onClick.AddListener(inventoryPopup.Close);
     }
 }
