@@ -1,21 +1,25 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class UIInventory : MonoBehaviour, IGUI
 {
     [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private RectTransform rectTransform;
 
     [SerializeField] private TextMeshProUGUI tmpInventoryCount;
     
     [SerializeField] private Transform inventoryRoot;
     [SerializeField] private GameObject origin;
     
+    
     private List<GUISlot> inventorySlots;
     
     private void Reset()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        rectTransform = GetComponent<RectTransform>();
         tmpInventoryCount = transform.FindChildByName<TextMeshProUGUI>("Tmp_Count");
         inventoryRoot = transform.FindChildByName<Transform>("Layout_Inventory");
         origin = transform.FindChildByName<GUISlot>("GUI_Slot").gameObject;
@@ -23,19 +27,19 @@ public class UIInventory : MonoBehaviour, IGUI
     
     public void Initialization()
     {
-        canvasGroup.SetActive(false);
+        canvasGroup.SetAlpha(false);
         inventorySlots = new List<GUISlot>();
     }
 
     public void Open()
     {
         UpdateInventoryGUI();
-        canvasGroup.SetActive(true);
+        canvasGroup.OpenPopupAnimation(rectTransform, RectTransform.Axis.Horizontal, 500f, -50f);
     }
 
     public void Close()
     {
-        canvasGroup.SetActive(false);
+        canvasGroup.ClosePopupAnimation(rectTransform, RectTransform.Axis.Horizontal, -50f, 500f);
     }
 
     private void UpdateInventoryGUI()

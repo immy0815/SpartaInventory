@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeUntilBored: 0
   numberOfBoredAnims: 1
-  repeatCountOfBoredAnims: 05000000
+  repeatCountOfBoredAnims: 03000000
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
