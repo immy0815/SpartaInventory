@@ -59,6 +59,6 @@ public class UIInventory : MonoBehaviour, IGUI
             inventorySlots.Add(slot);
         }
 
-        tmpInventoryCount.text = $"{inventorySlots.Count.ToString("D")}/{GameManager.Instance.lobbyPlayerData.MaxInventorySize.ToString("D")}";
+        tmpInventoryCount.text = $"<color=#484848>{inventorySlots.Count.ToString("D2")}</color><color=#DEA313>/{GameManager.Instance.lobbyPlayerData.MaxInventorySize.ToString("D2")}</color>";
     }
 }

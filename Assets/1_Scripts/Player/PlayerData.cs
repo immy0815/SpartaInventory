@@ -39,6 +39,12 @@ public class PlayerData
         // 변경 캐릭터 기본 능력치 스탯 추가
         playerStat.AddStats(data.stats);
         characterData = data;
+        
+        // instance 캐릭터에 반영
+        GameManager.Instance.player.ChangeCharacter(this);
+
+        // UI Update
+        UIManager.Instance.UpdateCharNameText();
     }
     
     // Information

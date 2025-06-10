@@ -10,6 +10,21 @@ public interface IGUI
 
 public class UIManager : MonoBehaviour
 {
+    private static UIManager instance;
+
+    public static UIManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                MyDebug.LogError("UIManager Instance Not Found");
+                return null;
+            }
+            return instance;
+        }
+    }
+    
     [SerializeField] UICanvasLobby canvasLobby;
 
     private void Reset()
@@ -17,8 +32,21 @@ public class UIManager : MonoBehaviour
         canvasLobby = GetComponentInChildren<UICanvasLobby>();
     }
 
-    void Awake()
+    private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         canvasLobby.Initialization();
     }
+
+    public void UpdateCharNameText() => canvasLobby.UpdateCharNameText();
 }

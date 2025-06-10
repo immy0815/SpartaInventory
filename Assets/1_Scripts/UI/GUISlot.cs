@@ -22,8 +22,8 @@ public class GUISlot : MonoBehaviour
         gameObject.SetActive(true);
 
         thisItem = item;
-        imgIcon.sprite = item.itemData.icon;
-        imgEquipMark.enabled = item.isEquipped;
+        imgIcon.sprite = thisItem.itemData.icon;
+        imgEquipMark.enabled = thisItem.isEquipped;
     }
 
     public void SetButtonClick(UnityAction callback)
@@ -33,7 +33,7 @@ public class GUISlot : MonoBehaviour
         btnEquip.onClick.AddListener(callback);
     }
     
-    private void Select()
+    public void Select()
     {
         if (thisItem.isEquipped)
         {

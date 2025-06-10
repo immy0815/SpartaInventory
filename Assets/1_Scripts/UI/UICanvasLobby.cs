@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class UICanvasLobby : MonoBehaviour, IGUI
@@ -22,10 +23,13 @@ public class UICanvasLobby : MonoBehaviour, IGUI
     [SerializeField] private Button btnInventory;
     [SerializeField] private UIInventory inventoryPopup;
 
+    [SerializeField] private UICharacterBag characterBag;
+
     private void Reset()
     {
         // Lobby
         btnBack = transform.FindChildByName<Button>("Btn_Back");
+        characterBag = transform.FindChildByName<UICharacterBag>("Group_Character");
         
         // Information
         tmpNickName = transform.FindChildByName<TextMeshProUGUI>("Tmp_NickName");
@@ -44,11 +48,15 @@ public class UICanvasLobby : MonoBehaviour, IGUI
 
     public void Initialization()
     {
+        // Lobby
+        btnBack.gameObject.SetActive(false);
+        characterBag.Initialization();
+        
         // Information
         tmpNickName.text = GameManager.Instance.lobbyPlayerData.Nickname;
-        tmpCharName.text = GameManager.Instance.lobbyPlayerData.characterData.charName;
-        tmpLevel.text = GameManager.Instance.lobbyPlayerData.Level.ToString();
-        tmpGold.text = GameManager.Instance.lobbyPlayerData.Gold.ToString();
+        UpdateCharNameText();
+        tmpLevel.text = $"Lv. {GameManager.Instance.lobbyPlayerData.Level.ToString()}";
+        tmpGold.text = $"{GameManager.Instance.lobbyPlayerData.Gold.ToString()} G";
         
         // Status
         btnStatus.onClick.RemoveAllListeners();
@@ -69,14 +77,29 @@ public class UICanvasLobby : MonoBehaviour, IGUI
     private void OpenStatusPopup()
     {
         statusPopup.Open();
+        btnBack.gameObject.SetActive(true);
         btnBack.onClick.RemoveAllListeners();
-        btnBack.onClick.AddListener(statusPopup.Close);
+        btnBack.onClick.AddListener(() =>
+        {
+            statusPopup.Close();
+            btnBack.gameObject.SetActive(false);
+        });
     }
     
     private void OpenInventoryPopup()
     {
         inventoryPopup.Open();
+        btnBack.gameObject.SetActive(true);
         btnBack.onClick.RemoveAllListeners();
-        btnBack.onClick.AddListener(inventoryPopup.Close);
+        btnBack.onClick.AddListener(() =>
+        {
+            inventoryPopup.Close();
+            btnBack.gameObject.SetActive(false);
+        });
+    }
+
+    public void UpdateCharNameText()
+    {
+        tmpCharName.text = GameManager.Instance.lobbyPlayerData.characterData.charName;
     }
 }

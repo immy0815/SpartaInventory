@@ -39,9 +39,11 @@ public class GameManager : MonoBehaviour
 
     private void Initialization()
     {
-        CharacterData characterData = Resources.Load<CharacterData>("CharacterData/BaseCharData");
+        CharacterData characterData = Resources.Load<CharacterData>("CharacterData/CharacterFBData");
         lobbyPlayerData = new PlayerData();
-        lobbyPlayerData.Init(characterData, "최영임", 1, 0);
+        lobbyPlayerData.Init(characterData, "앵임이다", 1, 0);
+
+        SpawnPlayer();
     }
 
     private void SpawnPlayer()
