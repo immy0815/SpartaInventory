@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abc28cec0ea440944a7ff384a81522e5, type: 3}
-  m_Name: BaseCharData
+  m_Name: CharacterFDData
   m_EditorClassIdentifier: 
-  charName: "\uCD5C\uC601\uC784"
-  charPrefab: {fileID: 0}
-  portrait: {fileID: 0}
+  charName: "\uC5EC\uC790 D"
+  charPrefab: {fileID: 5938102649561700295, guid: 394e37db302f58d4bbbed905044468e7, type: 3}
+  portrait: {fileID: 21300000, guid: e4ba78781708b9d4ab94f9b75cc75014, type: 3}
   stats:
   - type: 0
-    value: 100
+    value: 80
   - type: 1
     value: 10
   - type: 2
