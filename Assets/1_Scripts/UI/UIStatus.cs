@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIStatus : MonoBehaviour, IGUI
 {
     [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private RectTransform rectTransform;
     
     [SerializeField] private Transform slotRoot;
     [SerializeField] private GameObject origin;
@@ -14,25 +15,26 @@ public class UIStatus : MonoBehaviour, IGUI
     private void Reset()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        rectTransform = GetComponent<RectTransform>();
         slotRoot = transform.FindChildByName<Transform>("Layout_Stat");
         origin = transform.FindChildByName<GUIStat>("GUI_Stat").gameObject;
     }
 
     public void Initialization()
     {
-        canvasGroup.SetActive(false);
+        canvasGroup.SetAlpha(false);
         statSlots = new List<GUIStat>();
     }
 
     public void Open()
     {
         UpdateStatusGUI();
-        canvasGroup.SetActive(true);
+        canvasGroup.OpenPopupAnimation(rectTransform, RectTransform.Axis.Horizontal, 500f, -50f);
     }
 
     public void Close()
     {
-        canvasGroup.SetActive(false);
+        canvasGroup.ClosePopupAnimation(rectTransform, RectTransform.Axis.Horizontal, -50f, 500f);
     }
 
     private void UpdateStatusGUI()

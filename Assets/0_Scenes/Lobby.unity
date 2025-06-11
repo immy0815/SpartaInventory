@@ -885,6 +885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 87422722}
+  rectTransform: {fileID: 87422721}
   tmpInventoryCount: {fileID: 1339885627}
   inventoryRoot: {fileID: 876192907}
   origin: {fileID: 770977815}
@@ -2166,6 +2167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 726577331}
+  rectTransform: {fileID: 726577328}
   slotRoot: {fileID: 2031285979}
   origin: {fileID: 2084838130}
 --- !u!1 &738646480

@@ -1,3 +1,5 @@
+using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public static class Extensions
@@ -31,7 +33,7 @@ public static class Extensions
     }
     
     // Extension: Canvas Group
-    public static void SetActive(this CanvasGroup canvasGroup, bool active)
+    public static void SetAlpha(this CanvasGroup canvasGroup, bool active)
     {
         if (active)
         {
@@ -46,4 +48,43 @@ public static class Extensions
             canvasGroup.blocksRaycasts = false;
         }
     }
+    
+    private static void AnimatePopup(CanvasGroup canvasGroup, RectTransform rectTr, RectTransform.Axis axis, float startPosValue, float destination, float finalAlpha)
+    {
+        // 초기화: DOTween 제거
+        canvasGroup.DOKill();
+        rectTr.DOKill();
+        
+        // finalAlpha = 0 => true, finalAlpha = 1 => false
+        canvasGroup.SetAlpha(finalAlpha < 0.5f);
+        
+        // 가로, 세로에 따라
+        switch (axis)
+        {
+            case RectTransform.Axis.Horizontal:
+                rectTr.anchoredPosition = new Vector2(startPosValue, rectTr.anchoredPosition.y);
+                rectTr.DOAnchorPosX(destination, 0.5f).From(rectTr.anchoredPosition);
+                break;
+            case RectTransform.Axis.Vertical:
+                rectTr.anchoredPosition = new Vector2(rectTr.anchoredPosition.x, startPosValue);
+                rectTr.DOAnchorPosY(destination, 0.5f).From(rectTr.anchoredPosition);
+                break;
+            default:
+                MyDebug.Log("Animation Failed: AnimatePopup");
+                return;
+        }
+
+        DOVirtual.DelayedCall(0.1f, () =>
+        {
+            // 2/5 정도 실행됐을 때, Fade 실행
+            // finalAlpha = 0 => false, finalAlpha = 1 => true
+            canvasGroup.DOFade(finalAlpha, 0.3f).onComplete += () => canvasGroup.SetAlpha(finalAlpha > 0.5f);
+        });
+    }
+    
+    public static void OpenPopupAnimation(this CanvasGroup canvasGroup, RectTransform rectTr, RectTransform.Axis axis, float startPosValue, float destination)
+        => AnimatePopup(canvasGroup, rectTr, axis, startPosValue, destination, 1f);
+
+    public static void ClosePopupAnimation(this CanvasGroup canvasGroup, RectTransform rectTr, RectTransform.Axis axis, float startPosValue, float destination)
+        => AnimatePopup(canvasGroup, rectTr, axis, startPosValue, destination, 0f);
 }
