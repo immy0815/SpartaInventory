@@ -1,6 +1,6 @@
 # 🎮 Sparta Inventory
 
-Sparta Inventory 프로젝트는 유지보수와 확장성을 고려해 구성된 간단한 Unity 게임 UI 스크립트 구조입니다.
+Sparta Inventory 프로젝트는 **유지보수**와 **확장성**을 고려해 구성된 **간단한 Unity 게임 UI 스크립트 구조**입니다.
 
 ![Image](https://github.com/user-attachments/assets/03bb63bf-d55b-4cf4-8fe3-530d5d7e11c1)
 
